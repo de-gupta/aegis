@@ -22,5 +22,8 @@ public interface ValidationSpecification<T> extends Specification<T>
 	}
 
 	@Override
-	ValidationSpecification<T> not();
+	default ValidationSpecification<T> not()
+	{
+		return NotValidationSpecification.from(this);
+	}
 }
