@@ -1,6 +1,5 @@
 package de.gupta.validation.aegis.api.specification;
 
-import java.util.function.Function;
 import java.util.function.Predicate;
 
 public final class SpecificationFactory
@@ -10,8 +9,12 @@ public final class SpecificationFactory
 		return predicate::test;
 	}
 
-	public static <T> Specification<T> from(final Function<T, Boolean> function)
+	public static <T> Specification<T> inverse(final Predicate<T> predicate)
 	{
-		return function::apply;
+		return t -> !predicate.test(t);
+	}
+
+	private SpecificationFactory()
+	{
 	}
 }

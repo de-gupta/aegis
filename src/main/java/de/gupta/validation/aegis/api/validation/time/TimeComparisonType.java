@@ -1,4 +1,4 @@
-package de.gupta.validation.aegis.api.validation;
+package de.gupta.validation.aegis.api.validation.time;
 
 public enum TimeComparisonType
 {

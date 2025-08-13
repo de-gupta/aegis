@@ -15,7 +15,7 @@ public final class SpecificationBasedValidationSpecification<T> implements Valid
 	}
 
 	@Override
-	public ValidationResult validate(final T t)
+	public void validate(final T t)
 	{
 		// TODO
 		return Unfolding.beckon(t)

@@ -3,7 +3,7 @@ package de.gupta.validation.aegis.api.validation;
 @FunctionalInterface
 public interface ValidationSpecification<T>
 {
-	ValidationResult validate(T t);
+	void validate(T t);
 
 	default ValidationSpecification<T> and(final ValidationSpecification<T> other)
 	{

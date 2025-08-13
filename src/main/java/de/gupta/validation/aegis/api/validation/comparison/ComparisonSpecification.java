@@ -1,7 +1,7 @@
 package de.gupta.validation.aegis.api.validation.comparison;
 
 import de.gupta.validation.aegis.api.exception.ValidationFailedException;
-import de.gupta.validation.aegis.api.validation.ComparisonType;
+import de.gupta.validation.aegis.api.specification.comparison.ComparisonType;
 import de.gupta.validation.aegis.api.validation.SpecificationBasedValidationSpecification;
 import de.gupta.validation.aegis.api.validation.ValidationSpecification;
 

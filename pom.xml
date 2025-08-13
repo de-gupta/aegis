@@ -18,7 +18,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <aletheia.version>0.0.7</aletheia.version>
-        <commons.utility.version>0.0.5</commons.utility.version>
+        <commons.utility.version>0.0.6-SNAPSHOT</commons.utility.version>
     </properties>
 
     <dependencies>

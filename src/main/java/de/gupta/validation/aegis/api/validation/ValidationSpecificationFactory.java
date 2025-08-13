@@ -2,6 +2,7 @@ package de.gupta.validation.aegis.api.validation;
 
 import de.gupta.validation.aegis.api.exception.FieldValidationFailedException;
 import de.gupta.validation.aegis.api.exception.ValidationFailedException;
+import de.gupta.validation.aegis.api.specification.comparison.ComparisonType;
 import de.gupta.validation.aegis.api.validation.collection.EachInCollectionSpecification;
 import de.gupta.validation.aegis.api.validation.collection.InCollectionSpecification;
 import de.gupta.validation.aegis.api.validation.collection.MapNotEmptySpecification;
@@ -13,9 +14,7 @@ import de.gupta.validation.aegis.api.validation.object.ConsistencySpecification;
 import de.gupta.validation.aegis.api.validation.object.NotNullSpecification;
 import de.gupta.validation.aegis.api.validation.string.NoLeadingOrTrailingSpacesSpecification;
 import de.gupta.validation.aegis.api.validation.string.NotBlankSpecification;
-import de.gupta.validation.aegis.api.validation.time.AgeSpecification;
-import de.gupta.validation.aegis.api.validation.time.TimeSpecification;
-import de.gupta.validation.aegis.api.validation.time.TwoTimestampsSpecification;
+import de.gupta.validation.aegis.api.validation.time.*;
 
 import java.time.LocalDate;
 import java.time.OffsetDateTime;

@@ -16,7 +16,7 @@ record BinaryCompositeValidationSpecification<T>(ValidationSpecification<T> left
 	}
 
 	@Override
-	public ValidationResult validate(final T t)
+	public void validate(final T t)
 	{
 		return switch (compositionType)
 		{

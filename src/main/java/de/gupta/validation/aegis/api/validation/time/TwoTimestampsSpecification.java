@@ -2,7 +2,6 @@ package de.gupta.validation.aegis.api.validation.time;
 
 import de.gupta.validation.aegis.api.exception.ValidationFailedException;
 import de.gupta.validation.aegis.api.validation.SpecificationBasedValidationSpecification;
-import de.gupta.validation.aegis.api.validation.TimeComparisonType;
 import de.gupta.validation.aegis.api.validation.ValidationSpecification;
 
 import java.time.LocalDate;
