@@ -1,6 +1,6 @@
 package de.gupta.validation.aegis.api.validator;
 
-import de.gupta.validation.aegis.api.specification.validation.ValidationSpecification;
+import de.gupta.validation.aegis.api.validation.ValidationSpecification;
 
 import java.util.function.Supplier;
 

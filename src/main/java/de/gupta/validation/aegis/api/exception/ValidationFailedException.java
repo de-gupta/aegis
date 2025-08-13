@@ -1,7 +1,7 @@
 package de.gupta.validation.aegis.api.exception;
 
 
-import de.gupta.validation.aegis.api.specification.validation.ValidationSpecification;
+import de.gupta.validation.aegis.api.validation.ValidationSpecification;
 
 import java.util.Set;
 import java.util.function.Supplier;
