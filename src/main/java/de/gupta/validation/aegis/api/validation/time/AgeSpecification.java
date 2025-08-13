@@ -1,7 +1,7 @@
 package de.gupta.validation.aegis.api.validation.time;
 
 import de.gupta.validation.aegis.api.exception.ValidationFailedException;
-import de.gupta.validation.aegis.api.validation.AbstractValidationSpecification;
+import de.gupta.validation.aegis.api.validation.SpecificationBasedValidationSpecification;
 import de.gupta.validation.aegis.api.validation.ValidationSpecification;
 
 import java.time.LocalDate;
@@ -10,7 +10,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 public final class AgeSpecification<T, V extends ValidationFailedException>
-		extends AbstractValidationSpecification<T, V> implements ValidationSpecification<T>
+		extends SpecificationBasedValidationSpecification<T, V> implements ValidationSpecification<T>
 {
 	private final Function<T, LocalDate> extractor;
 	private final int maximumAge;

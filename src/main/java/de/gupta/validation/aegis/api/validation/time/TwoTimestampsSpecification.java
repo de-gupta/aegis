@@ -1,7 +1,7 @@
 package de.gupta.validation.aegis.api.validation.time;
 
 import de.gupta.validation.aegis.api.exception.ValidationFailedException;
-import de.gupta.validation.aegis.api.validation.AbstractValidationSpecification;
+import de.gupta.validation.aegis.api.validation.SpecificationBasedValidationSpecification;
 import de.gupta.validation.aegis.api.validation.TimeComparisonType;
 import de.gupta.validation.aegis.api.validation.ValidationSpecification;
 
@@ -12,7 +12,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 public final class TwoTimestampsSpecification<T, V extends ValidationFailedException>
-		extends AbstractValidationSpecification<T, V> implements ValidationSpecification<T>
+		extends SpecificationBasedValidationSpecification<T, V> implements ValidationSpecification<T>
 {
 	private final Function<T, OffsetDateTime> toBeTestedExtractor;
 	private final Function<T, OffsetDateTime> referenceExtractor;

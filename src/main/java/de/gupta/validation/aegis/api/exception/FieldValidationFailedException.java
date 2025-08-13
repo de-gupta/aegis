@@ -3,6 +3,7 @@ package de.gupta.validation.aegis.api.exception;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+@Deprecated
 public final class FieldValidationFailedException extends ValidationFailedException
 {
 	public static Function<String, FieldValidationFailedException> forField()

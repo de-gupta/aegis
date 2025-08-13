@@ -1,15 +1,17 @@
 package de.gupta.validation.aegis.api.validation;
 
-import de.gupta.validation.aegis.api.exception.ValidationFailedException;
-
-import java.util.function.Supplier;
-
-public record ValidationFailure<V extends ValidationFailedException>(Supplier<V> exceptionSupplier)
-		implements ValidationResult
+record ValidationFailure(String message) implements ValidationResult
 {
-	public static <V extends ValidationFailedException> ValidationResult from(final Supplier<V> exceptionSupplier)
+	private static final ValidationResult INSTANCE = new ValidationFailure("Validation Failed");
+
+	static ValidationResult genericFailure()
 	{
-		return new ValidationFailure<>(exceptionSupplier);
+		return INSTANCE;
+	}
+
+	static ValidationResult withMessage(String message)
+	{
+		return new ValidationFailure(message);
 	}
 
 	@Override

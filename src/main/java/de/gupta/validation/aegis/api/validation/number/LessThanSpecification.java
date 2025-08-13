@@ -1,14 +1,14 @@
 package de.gupta.validation.aegis.api.validation.number;
 
 import de.gupta.validation.aegis.api.exception.ValidationFailedException;
-import de.gupta.validation.aegis.api.validation.AbstractValidationSpecification;
+import de.gupta.validation.aegis.api.validation.SpecificationBasedValidationSpecification;
 import de.gupta.validation.aegis.api.validation.ValidationSpecification;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
 
 public final class LessThanSpecification<T, V extends ValidationFailedException>
-		extends AbstractValidationSpecification<T, V>
+		extends SpecificationBasedValidationSpecification<T, V>
 		implements ValidationSpecification<T>
 {
 	private final Function<T, ? extends Number> extractor;

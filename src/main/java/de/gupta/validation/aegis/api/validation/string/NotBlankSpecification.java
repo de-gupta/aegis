@@ -1,35 +1,23 @@
 package de.gupta.validation.aegis.api.validation.string;
 
-import de.gupta.validation.aegis.api.exception.ValidationFailedException;
-import de.gupta.validation.aegis.api.validation.AbstractValidationSpecification;
+import de.gupta.commons.utility.string.StringSanitizationUtility;
+import de.gupta.validation.aegis.api.validation.SpecificationBasedValidationSpecification;
+import de.gupta.validation.aegis.api.validation.ValidationResult;
 import de.gupta.validation.aegis.api.validation.ValidationSpecification;
 
 import java.util.function.Function;
-import java.util.function.Supplier;
 
-public final class NotBlankSpecification<T, V extends ValidationFailedException>
-		extends AbstractValidationSpecification<T, V>
-		implements ValidationSpecification<T>
+public record NotBlankSpecification<T>(Function<T, String> extractor) implements ValidationSpecification<T>
 {
-	private final Function<T, String> extractor;
-
-	public static <T, V extends ValidationFailedException> NotBlankSpecification<T, V> of(
-			final Function<T, String> extractor,
-			final Supplier<V> exceptionSupplier)
+	public static <T> NotBlankSpecification<T> of(final Function<T, String> extractor)
 	{
-		return new NotBlankSpecification<>(extractor, exceptionSupplier);
+		return new NotBlankSpecification<>(extractor);
 	}
 
 	@Override
-	public boolean isSatisfiedBy(final T t)
+	public ValidationResult validate(final T t)
 	{
-		String value = extractor.apply(t);
-		return value != null && !value.isBlank();
-	}
-
-	private NotBlankSpecification(final Function<T, String> extractor, final Supplier<V> exceptionSupplier)
-	{
-		super(exceptionSupplier);
-		this.extractor = extractor;
+		return SpecificationBasedValidationSpecification.of(
+				extractor.andThen(StringSanitizationUtility::isStringNonBlank)::apply).validate(t);
 	}
 }

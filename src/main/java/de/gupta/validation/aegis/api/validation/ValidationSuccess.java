@@ -1,10 +1,17 @@
 package de.gupta.validation.aegis.api.validation;
 
-public record ValidationSuccess() implements ValidationResult
+record ValidationSuccess(String message) implements ValidationResult
 {
-	public static ValidationResult from()
+	private static final ValidationResult INSTANCE = new ValidationSuccess("Validation Successful");
+
+	static ValidationResult genericSuccess()
 	{
-		return new ValidationSuccess();
+		return INSTANCE;
+	}
+
+	static ValidationResult withMessage(String message)
+	{
+		return new ValidationSuccess(message);
 	}
 
 	@Override
