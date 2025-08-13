@@ -37,12 +37,6 @@ public final class RequiredFieldNotSetException extends ValidationFailedExceptio
 		return RequiredFieldNotSetException.withMessage(DEFAULT_MESSAGE);
 	}
 
-	@Override
-	public RequiredFieldNotSetException setMessage(final String message)
-	{
-		return withMessage(message);
-	}
-
 	private RequiredFieldNotSetException(final String message)
 	{
 		super(message);

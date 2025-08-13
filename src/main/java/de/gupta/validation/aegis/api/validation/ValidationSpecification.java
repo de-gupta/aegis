@@ -1,29 +1,27 @@
 package de.gupta.validation.aegis.api.validation;
 
-import de.gupta.validation.aegis.api.specification.Specification;
-
-public interface ValidationSpecification<T> extends Specification<T>
+@FunctionalInterface
+public interface ValidationSpecification<T>
 {
-	void validate(T t);
+	ValidationResult validate(T t);
 
 	default ValidationSpecification<T> and(final ValidationSpecification<T> other)
 	{
-		return AndValidationSpecification.from(this, other);
+		return BinaryCompositeValidationSpecification.from(this, other, CompositionType.AND);
 	}
 
 	default ValidationSpecification<T> or(final ValidationSpecification<T> other)
 	{
-		return OrValidationSpecification.from(this, other);
+		return BinaryCompositeValidationSpecification.from(this, other, CompositionType.OR);
 	}
 
 	default ValidationSpecification<T> xor(final ValidationSpecification<T> other)
 	{
-		return XorValidationSpecification.from(this, other);
+		return BinaryCompositeValidationSpecification.from(this, other, CompositionType.XOR);
 	}
 
-	@Override
 	default ValidationSpecification<T> not()
 	{
-		return NotValidationSpecification.from(this);
+		return BinaryCompositeValidationSpecification.negation(this);
 	}
 }

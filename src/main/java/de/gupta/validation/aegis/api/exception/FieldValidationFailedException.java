@@ -25,12 +25,6 @@ public final class FieldValidationFailedException extends ValidationFailedExcept
 		return () -> withMessage(message);
 	}
 
-	@Override
-	public FieldValidationFailedException setMessage(final String message)
-	{
-		return withMessage(message);
-	}
-
 	private FieldValidationFailedException(String message)
 	{
 		super(message);
