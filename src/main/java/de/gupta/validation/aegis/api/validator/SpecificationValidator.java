@@ -1,11 +1,11 @@
 package de.gupta.validation.aegis.api.validator;
 
 
-import de.gupta.validation.aegis.api.validation.ValidationSpecification;
+import de.gupta.validation.aegis.api.validation.Validation;
 
-record SpecificationValidator<T>(ValidationSpecification<T> validationSpecification) implements Validator<T>
+record SpecificationValidator<T>(Validation<T> validationSpecification) implements Validator<T>
 {
-	static <T> SpecificationValidator<T> of(final ValidationSpecification<T> validationSpecification)
+	static <T> SpecificationValidator<T> of(final Validation<T> validationSpecification)
 	{
 		return new SpecificationValidator<>(validationSpecification);
 	}

@@ -35,6 +35,12 @@ public final class ComparableSpecificationFactory
 		return equal(threshold).not();
 	}
 
+	public static <T extends Comparable<T>> Specification<T> comparisonSpecification(final T threshold,
+																					 final ComparisonType comparisonType)
+	{
+		return SpecificationFactory.from(comparisonType.comparisonPredicate(threshold));
+	}
+
 	private ComparableSpecificationFactory()
 	{
 	}

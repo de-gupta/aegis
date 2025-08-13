@@ -17,7 +17,7 @@
         <maven.compiler.target>24</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <aletheia.version>0.0.7</aletheia.version>
+        <aletheia.version>0.0.8-SNAPSHOT</aletheia.version>
         <commons.utility.version>0.0.6-SNAPSHOT</commons.utility.version>
     </properties>
 

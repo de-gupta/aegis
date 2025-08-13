@@ -1,10 +1,10 @@
 package de.gupta.validation.aegis.api.validator;
 
-import de.gupta.validation.aegis.api.validation.ValidationSpecification;
+import de.gupta.validation.aegis.api.validation.Validation;
 
 public abstract class AbstractValidator<T> implements Validator<T>
 {
-	private final ValidationSpecification<T> validationSpecification;
+	private final Validation<T> validationSpecification;
 
 	@Override
 	public void validate(final T t)
@@ -12,7 +12,7 @@ public abstract class AbstractValidator<T> implements Validator<T>
 		validationSpecification.validate(t);
 	}
 
-	protected AbstractValidator(final ValidationSpecification<T> validationSpecification)
+	protected AbstractValidator(final Validation<T> validationSpecification)
 	{
 		this.validationSpecification = validationSpecification;
 	}
