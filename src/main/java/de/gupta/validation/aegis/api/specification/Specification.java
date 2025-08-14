@@ -5,23 +5,22 @@ public interface Specification<T>
 {
 	default Specification<T> and(Specification<T> other)
 	{
-		return AndSpecification.from(this, other);
+		return CompositeSpecification.of(this, other, CompositeSpecification.CompositionType.AND);
 	}
 
 	default Specification<T> or(Specification<T> other)
 	{
-		return OrSpecification.from(this, other);
+		return CompositeSpecification.of(this, other, CompositeSpecification.CompositionType.OR);
 	}
 
 	default Specification<T> xor(Specification<T> other)
 	{
-		return XorSpecification.from(this, other);
+		return CompositeSpecification.of(this, other, CompositeSpecification.CompositionType.XOR);
 	}
 
 	default Specification<T> not()
 	{
-		Specification<T> original = this;
-		return t -> !original.isSatisfiedBy(t);
+		return t -> !this.isSatisfiedBy(t);
 	}
 
 	boolean isSatisfiedBy(T t);
