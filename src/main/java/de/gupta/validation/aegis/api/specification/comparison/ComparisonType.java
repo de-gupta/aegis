@@ -12,14 +12,14 @@ public enum ComparisonType
 	GREATER_THAN_OR_EQUAL,
 	GREATER_THAN;
 
-	public <T extends Comparable<T>> boolean compare(T left, T right)
-	{
-		return compare(left, right, Comparator.naturalOrder());
-	}
-
 	public <T extends Comparable<T>> Predicate<T> comparisonPredicate(T threshold)
 	{
 		return t -> compare(t, threshold);
+	}
+
+	public <T extends Comparable<T>> boolean compare(T left, T right)
+	{
+		return compare(left, right, Comparator.naturalOrder());
 	}
 
 	public <B, A extends B, T extends B> boolean compare(T value, A threshold, Comparator<B> comparator)
@@ -34,19 +34,20 @@ public enum ComparisonType
 		};
 	}
 
-	public <B, A extends B, T extends B> boolean compare(Collection<T> values, A threshold, Comparator<B> comparator)
-	{
-		return values.stream().allMatch(t -> compare(t, threshold, comparator));
-	}
-
 	public <B, A extends B, T extends B> Predicate<T> comparisonPredicate(A threshold, Comparator<B> comparator)
 	{
 		return t -> compare(t, threshold, comparator);
 	}
 
-	public <B, A extends B, T extends B> Predicate<Collection<T>> allComparisonPredicate(A threshold, Comparator<B> comparator)
+	public <B, A extends B, T extends B> Predicate<Collection<T>> allComparisonPredicate(A threshold,
+																						 Comparator<B> comparator)
 	{
-		return t -> compare(t, threshold, comparator);
+		return t -> compareAll(t, threshold, comparator);
+	}
+
+	public <B, A extends B, T extends B> boolean compareAll(Collection<T> values, A threshold, Comparator<B> comparator)
+	{
+		return values.stream().allMatch(t -> compare(t, threshold, comparator));
 	}
 
 }

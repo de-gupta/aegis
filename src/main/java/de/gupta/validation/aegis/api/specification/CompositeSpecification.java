@@ -5,7 +5,8 @@ import java.util.function.Predicate;
 record CompositeSpecification<T>(Specification<T> left, Specification<T> right, CompositionType compositionType)
 		implements Specification<T>
 {
-	static <T> CompositeSpecification<T> of(Specification<T> left, Specification<T> right, CompositionType compositionType)
+	static <T> CompositeSpecification<T> of(final Specification<T> left, final Specification<T> right,
+											final CompositionType compositionType)
 	{
 		return new CompositeSpecification<>(left, right, compositionType);
 	}
@@ -22,6 +23,11 @@ record CompositeSpecification<T>(Specification<T> left, Specification<T> right, 
 		OR,
 		XOR;
 
+		public <T> boolean compose(final T value, final Predicate<T> left, final Predicate<T> right)
+		{
+			return compose(left.test(value), right.test(value));
+		}
+
 		public boolean compose(final boolean left, final boolean right)
 		{
 			return switch (this)
@@ -30,11 +36,6 @@ record CompositeSpecification<T>(Specification<T> left, Specification<T> right, 
 				case OR -> left || right;
 				case XOR -> left ^ right;
 			};
-		}
-
-		public <T> boolean compose(final T value, Predicate<T> left, Predicate<T> right)
-		{
-			return compose(left.test(value), right.test(value));
 		}
 	}
 }

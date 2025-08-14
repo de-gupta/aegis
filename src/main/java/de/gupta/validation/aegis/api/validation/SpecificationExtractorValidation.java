@@ -6,7 +6,7 @@ import de.gupta.validation.aegis.api.specification.Specification;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-record SpecificationExtractorValidation<T, P, E extends RuntimeException>(Function<T, P> propertyExtractor,
+record SpecificationExtractorValidation<T, P, E extends RuntimeException>(Function<T, ? extends P> propertyExtractor,
 																		  Function<T, Specification<P>> specificationExtractor,
 																		  Supplier<E> exceptionSupplier)
 		implements Validation<T>
@@ -15,7 +15,7 @@ record SpecificationExtractorValidation<T, P, E extends RuntimeException>(Functi
 	public void validate(final T t)
 	{
 		Unfolding.beckon(t)
-				 .interlace(propertyExtractor)
-				.discern(pair -> specificationExtractor.apply(pair.first()).isSatisfiedBy(pair.second()), exceptionSupplier);
+				 .sanctify(propertyExtractor, (o, p) -> specificationExtractor.apply(o).isSatisfiedBy(p),
+						 v -> v == true, exceptionSupplier);
 	}
 }
