@@ -5,13 +5,8 @@ import de.gupta.validation.aegis.api.specification.comparison.ComparisonSpecific
 
 import java.util.Comparator;
 
-public final class NumberSpecificationFactory
+public final class DoubleBasedPotentiallyImpreciseNumberSpecificationFactory
 {
-	public static <T extends Number> Specification<T> lessThan(final Number threshold)
-	{
-		return ComparisonSpecificationFactory.lessThan(threshold, Comparator.comparingDouble(Number::doubleValue));
-	}
-
 	public static <T extends Number> Specification<T> lessThanOrEqualTo(final Number threshold)
 	{
 		return ComparisonSpecificationFactory.lessThanOrEqualTo(threshold,
@@ -29,11 +24,6 @@ public final class NumberSpecificationFactory
 				Comparator.comparingDouble(Number::doubleValue));
 	}
 
-	public static <T extends Number> Specification<T> greaterThan(final Number threshold)
-	{
-		return ComparisonSpecificationFactory.greaterThan(threshold, Comparator.comparingDouble(Number::doubleValue));
-	}
-
 	public static <T extends Number> Specification<T> notEqual(final Number threshold)
 	{
 		return ComparisonSpecificationFactory.notEqual(threshold, Comparator.comparingDouble(Number::doubleValue));
@@ -44,12 +34,22 @@ public final class NumberSpecificationFactory
 		return lessThan(0);
 	}
 
+	public static <T extends Number> Specification<T> lessThan(final Number threshold)
+	{
+		return ComparisonSpecificationFactory.lessThan(threshold, Comparator.comparingDouble(Number::doubleValue));
+	}
+
 	public static <T extends Number> Specification<T> positive()
 	{
 		return greaterThan(0);
 	}
 
-	private NumberSpecificationFactory()
+	public static <T extends Number> Specification<T> greaterThan(final Number threshold)
+	{
+		return ComparisonSpecificationFactory.greaterThan(threshold, Comparator.comparingDouble(Number::doubleValue));
+	}
+
+	private DoubleBasedPotentiallyImpreciseNumberSpecificationFactory()
 	{
 	}
 }

@@ -19,6 +19,9 @@
 
         <aletheia.version>0.0.8-SNAPSHOT</aletheia.version>
         <commons.utility.version>0.0.6-SNAPSHOT</commons.utility.version>
+
+        <junit.jupiter.version>5.13.1</junit.jupiter.version>
+        <assertj.core.version>3.27.3</assertj.core.version>
     </properties>
 
     <dependencies>
@@ -31,6 +34,19 @@
             <groupId>io.github.de-gupta</groupId>
             <artifactId>commons-utility</artifactId>
             <version>${commons.utility.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj.core.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
