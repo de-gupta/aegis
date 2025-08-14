@@ -13,4 +13,11 @@ public final class ValidationFactory<T>
 	{
 		return new SpecificationValidation<>(propertyExtractor, specification, exceptionSupplier);
 	}
+
+	public static <T, P, E extends RuntimeException> Validation<T> from(final Function<T, P> propertyExtractor,
+																		final Function<T, Specification<P>> specificationExtractor,
+																		final Supplier<E> exceptionSupplier)
+	{
+		return new SpecificationExtractorValidation<>(propertyExtractor, specificationExtractor, exceptionSupplier);
+	}
 }

@@ -32,8 +32,11 @@ public final class ValidationSpecificationFactory
 			final Supplier<V> exceptionSupplier)
 	{
 		return ValidationFactory.from(extractor,
-				ComparableSpecificationFactory.comparisonSpecification(thresholdExtractor, comparisonType),
+				t -> ComparableSpecificationFactory.comparisonSpecification(thresholdExtractor.apply(t), comparisonType),
 				exceptionSupplier);
+//		return ValidationFactory.from(extractor,
+//				ComparableSpecificationFactory.comparisonSpecification(thresholdExtractor, comparisonType),
+//				exceptionSupplier);
 //		return ComparisonSpecification.of(extractor, thresholdExtractor, comparisonType, exceptionSupplier);
 	}
 
