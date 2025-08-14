@@ -25,16 +25,11 @@ record CompositeSpecification<T>(Specification<T> left, Specification<T> right, 
 
 		public <T> boolean compose(final T value, final Predicate<T> left, final Predicate<T> right)
 		{
-			return compose(left.test(value), right.test(value));
-		}
-
-		public boolean compose(final boolean left, final boolean right)
-		{
 			return switch (this)
 			{
-				case AND -> left && right;
-				case OR -> left || right;
-				case XOR -> left ^ right;
+				case AND -> left.test(value) && right.test(value);
+				case OR -> left.test(value) || right.test(value);
+				case XOR -> left.test(value) ^ right.test(value);
 			};
 		}
 	}
