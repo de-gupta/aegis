@@ -24,10 +24,10 @@ final class CompositeSpecificationTest
 		@ParameterizedTest(name = "{3}")
 		@MethodSource("factoryTestCases")
 		@DisplayName("should create composite specification with correct properties")
-		void shouldCreateCompositeSpecificationWithCorrectProperties(Specification<String> left,
-																	 Specification<String> right,
-																	 CompositeSpecification.CompositionType compositionType,
-																	 String description)
+		void shouldCreateCompositeSpecificationWithCorrectProperties(final Specification<String> left,
+																	 final Specification<String> right,
+																	 final CompositeSpecification.CompositionType compositionType,
+																	 final String description)
 		{
 			var result = CompositeSpecification.of(left, right, compositionType);
 
@@ -41,9 +41,9 @@ final class CompositeSpecificationTest
 
 		private static Stream<Arguments> factoryTestCases()
 		{
-			var alwaysTrue = (Specification<String>) _ -> true;
-			var alwaysFalse = (Specification<String>) _ -> false;
-			var isNull = (Specification<String>) Objects::isNull;
+			Specification<String> alwaysTrue = _ -> true;
+			Specification<String> alwaysFalse = _ -> false;
+			Specification<String> isNull = Objects::isNull;
 
 			return Stream.of(new FactoryTestCase(alwaysTrue, alwaysFalse, CompositeSpecification.CompositionType.AND,
 										 "AND composition"),
@@ -71,11 +71,11 @@ final class CompositeSpecificationTest
 		@ParameterizedTest(name = "{4}")
 		@MethodSource("andCompositionTestCases")
 		@DisplayName("should return correct result for AND composition")
-		void shouldReturnCorrectResultForAndComposition(boolean leftResult, boolean rightResult, boolean expectedResult,
+		void shouldReturnCorrectResultForAndComposition(final boolean leftResult, final boolean rightResult, final boolean expectedResult,
 														final String testValue, final String description)
 		{
-			var leftSpec = (Specification<String>) _ -> leftResult;
-			var rightSpec = (Specification<String>) _ -> rightResult;
+			Specification<String> leftSpec = _ -> leftResult;
+			Specification<String> rightSpec = _ -> rightResult;
 			var composite = CompositeSpecification.of(leftSpec, rightSpec, CompositeSpecification.CompositionType.AND);
 
 			var result = composite.isSatisfiedBy(testValue);
@@ -107,11 +107,11 @@ final class CompositeSpecificationTest
 		@ParameterizedTest(name = "{4}")
 		@MethodSource("orCompositionTestCases")
 		@DisplayName("should return correct result for OR composition")
-		void shouldReturnCorrectResultForOrComposition(boolean leftResult, boolean rightResult, boolean expectedResult,
-													   String testValue, String description)
+		void shouldReturnCorrectResultForOrComposition(final boolean leftResult, final boolean rightResult, final boolean expectedResult,
+													   final String testValue, final String description)
 		{
-			var leftSpec = (Specification<String>) _ -> leftResult;
-			var rightSpec = (Specification<String>) _ -> rightResult;
+			Specification<String> leftSpec = _ -> leftResult;
+			Specification<String> rightSpec = _ -> rightResult;
 			var composite = CompositeSpecification.of(leftSpec, rightSpec, CompositeSpecification.CompositionType.OR);
 
 			var result = composite.isSatisfiedBy(testValue);
@@ -143,11 +143,11 @@ final class CompositeSpecificationTest
 		@ParameterizedTest(name = "{4}")
 		@MethodSource("xorCompositionTestCases")
 		@DisplayName("should return correct result for XOR composition")
-		void shouldReturnCorrectResultForXorComposition(boolean leftResult, boolean rightResult, boolean expectedResult,
-														String testValue, String description)
+		void shouldReturnCorrectResultForXorComposition(final boolean leftResult, final boolean rightResult, final boolean expectedResult,
+														final String testValue, final String description)
 		{
-			var leftSpec = (Specification<String>) _ -> leftResult;
-			var rightSpec = (Specification<String>) _ -> rightResult;
+			Specification<String> leftSpec = _ -> leftResult;
+			Specification<String> rightSpec = _ -> rightResult;
 			var composite = CompositeSpecification.of(leftSpec, rightSpec, CompositeSpecification.CompositionType.XOR);
 
 			var result = composite.isSatisfiedBy(testValue);
@@ -180,10 +180,10 @@ final class CompositeSpecificationTest
 		@MethodSource("realWorldScenarioTestCases")
 		@DisplayName("should handle real world scenarios correctly")
 		void shouldHandleRealWorldScenariosCorrectly(final String testValue,
-													 Specification<String> leftSpec,
-													 Specification<String> rightSpec,
-													 CompositeSpecification.CompositionType compositionType,
-													 boolean expectedResult, String description)
+													 final Specification<String> leftSpec,
+													 final Specification<String> rightSpec,
+													 final CompositeSpecification.CompositionType compositionType,
+													 final boolean expectedResult, final String description)
 		{
 			var composite = CompositeSpecification.of(leftSpec, rightSpec, compositionType);
 
@@ -195,8 +195,8 @@ final class CompositeSpecificationTest
 
 		private static Stream<Arguments> realWorldScenarioTestCases()
 		{
-			var isNotNull = (Specification<String>) Objects::nonNull;
-			var hasLengthGreaterThanThree = (Specification<String>) s -> s != null && s.length() > 3;
+			Specification<String> isNotNull = Objects::nonNull;
+			Specification<String> hasLengthGreaterThanThree = s -> s != null && s.length() > 3;
 
 			return Stream.of(new ScenarioTestCase("hello", isNotNull, hasLengthGreaterThanThree,
 										 CompositeSpecification.CompositionType.AND, true,
@@ -245,10 +245,10 @@ final class CompositeSpecificationTest
 		@MethodSource("localDateCompositionTestCases")
 		@DisplayName("should handle LocalDate compositions correctly")
 		void shouldHandleLocalDateCompositionsCorrectly(final LocalDate testValue,
-														Specification<LocalDate> leftSpec,
-														Specification<LocalDate> rightSpec,
+														final Specification<LocalDate> leftSpec,
+														final Specification<LocalDate> rightSpec,
 														final CompositeSpecification.CompositionType compositionType,
-														boolean expectedResult, final String description)
+														final boolean expectedResult, final String description)
 		{
 			var composite = CompositeSpecification.of(leftSpec, rightSpec, compositionType);
 
@@ -305,11 +305,11 @@ final class CompositeSpecificationTest
 		@ParameterizedTest(name = "{5}")
 		@MethodSource("dayOfWeekCompositionTestCases")
 		@DisplayName("should handle DayOfWeek compositions correctly")
-		void shouldHandleDayOfWeekCompositionsCorrectly(DayOfWeek testValue,
-														Specification<DayOfWeek> leftSpec,
-														Specification<DayOfWeek> rightSpec,
-														CompositeSpecification.CompositionType compositionType,
-														boolean expectedResult, String description)
+		void shouldHandleDayOfWeekCompositionsCorrectly(final DayOfWeek testValue,
+														final Specification<DayOfWeek> leftSpec,
+														final Specification<DayOfWeek> rightSpec,
+														final CompositeSpecification.CompositionType compositionType,
+														final boolean expectedResult, final String description)
 		{
 			var composite = CompositeSpecification.of(leftSpec, rightSpec, compositionType);
 
@@ -321,8 +321,8 @@ final class CompositeSpecificationTest
 
 		private static Stream<Arguments> dayOfWeekCompositionTestCases()
 		{
-			var isWeekend = (Specification<DayOfWeek>) day -> (day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY);
-			var isMonday = (Specification<DayOfWeek>) day -> day == DayOfWeek.MONDAY;
+			Specification<DayOfWeek> isWeekend = day -> (day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY);
+			Specification<DayOfWeek> isMonday = day -> day == DayOfWeek.MONDAY;
 
 			return Stream.of(
 								 new DayOfWeekTestCase(DayOfWeek.SATURDAY, isWeekend, isMonday,
@@ -364,11 +364,11 @@ final class CompositeSpecificationTest
 		@ParameterizedTest(name = "{5}")
 		@MethodSource("bigDecimalCompositionTestCases")
 		@DisplayName("should handle BigDecimal compositions correctly")
-		void shouldHandleBigDecimalCompositionsCorrectly(BigDecimal testValue,
-														 Specification<BigDecimal> leftSpec,
-														 Specification<BigDecimal> rightSpec,
-														 CompositeSpecification.CompositionType compositionType,
-														 boolean expectedResult, String description)
+		void shouldHandleBigDecimalCompositionsCorrectly(final BigDecimal testValue,
+														 final Specification<BigDecimal> leftSpec,
+														 final Specification<BigDecimal> rightSpec,
+														 final CompositeSpecification.CompositionType compositionType,
+														 final boolean expectedResult, final String description)
 		{
 			var composite = CompositeSpecification.of(leftSpec, rightSpec, compositionType);
 
@@ -428,11 +428,11 @@ final class CompositeSpecificationTest
 		@ParameterizedTest(name = "{5}")
 		@MethodSource("edgeCaseTestCases")
 		@DisplayName("should handle edge cases and boundary conditions correctly")
-		void shouldHandleEdgeCasesAndBoundaryConditionsCorrectly(String testValue,
-																 Specification<String> leftSpec,
-																 Specification<String> rightSpec,
-																 CompositeSpecification.CompositionType compositionType,
-																 boolean expectedResult, String description)
+		void shouldHandleEdgeCasesAndBoundaryConditionsCorrectly(final String testValue,
+																 final Specification<String> leftSpec,
+																 final Specification<String> rightSpec,
+																 final CompositeSpecification.CompositionType compositionType,
+																 final boolean expectedResult, final String description)
 		{
 			var composite = CompositeSpecification.of(leftSpec, rightSpec, compositionType);
 
@@ -444,8 +444,8 @@ final class CompositeSpecificationTest
 
 		private static Stream<Arguments> edgeCaseTestCases()
 		{
-			var isNotEmpty = (Specification<String>) s -> s != null && !s.isEmpty();
-			var hasMinLength = (Specification<String>) s -> s != null && s.length() >= 2;
+			Specification<String> isNotEmpty = s -> s != null && !s.isEmpty();
+			Specification<String> hasMinLength = s -> s != null && s.length() >= 2;
 
 			return Stream.of(
 								 new EdgeCaseTestCase("", isNotEmpty, hasMinLength, CompositeSpecification.CompositionType.AND,
@@ -486,11 +486,11 @@ final class CompositeSpecificationTest
 		@ParameterizedTest(name = "{5}")
 		@MethodSource("localDateTimeComplexTestCases")
 		@DisplayName("should handle complex LocalDateTime compositions correctly")
-		void shouldHandleComplexLocalDateTimeCompositionsCorrectly(LocalDateTime testValue,
-																   Specification<LocalDateTime> leftSpec,
-																   Specification<LocalDateTime> rightSpec,
-																   CompositeSpecification.CompositionType compositionType,
-																   boolean expectedResult, String description)
+		void shouldHandleComplexLocalDateTimeCompositionsCorrectly(final LocalDateTime testValue,
+																   final Specification<LocalDateTime> leftSpec,
+																   final Specification<LocalDateTime> rightSpec,
+																   final CompositeSpecification.CompositionType compositionType,
+																   final boolean expectedResult, final String description)
 		{
 			var composite = CompositeSpecification.of(leftSpec, rightSpec, compositionType);
 
@@ -502,9 +502,9 @@ final class CompositeSpecificationTest
 
 		private static Stream<Arguments> localDateTimeComplexTestCases()
 		{
-			var isBusinessHours = (Specification<LocalDateTime>) dt -> dt != null &&
+			Specification<LocalDateTime> isBusinessHours = dt -> dt != null &&
 					dt.getHour() >= 9 && dt.getHour() < 17;
-			var isWeekday = (Specification<LocalDateTime>) dt -> dt != null &&
+			Specification<LocalDateTime> isWeekday = dt -> dt != null &&
 					dt.getDayOfWeek().getValue() <= 5;
 
 			return Stream.of(new LocalDateTimeTestCase(LocalDateTime.of(2024, 1, 8, 10, 0), isBusinessHours, isWeekday,
