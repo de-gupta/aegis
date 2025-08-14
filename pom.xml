@@ -17,8 +17,8 @@
         <maven.compiler.target>24</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <aletheia.version>0.0.8-SNAPSHOT</aletheia.version>
-        <commons.utility.version>0.0.6-SNAPSHOT</commons.utility.version>
+        <aletheia.version>0.0.8</aletheia.version>
+        <commons.utility.version>0.0.6</commons.utility.version>
 
         <junit.jupiter.version>5.13.1</junit.jupiter.version>
         <assertj.core.version>3.27.3</assertj.core.version>
