@@ -45,6 +45,13 @@ public final class ComparisonSpecificationFactory
 		return SpecificationFactory.from(ComparisonType.EQUAL.comparisonPredicate(threshold, comparator));
 	}
 
+	public static <B, A extends B, T extends B> Specification<T> comparison(final A threshold,
+																	   final Comparator<B> comparator,
+																			final ComparisonType comparisonType)
+	{
+		return SpecificationFactory.from(comparisonType.comparisonPredicate(threshold, comparator));
+	}
+
 	private ComparisonSpecificationFactory()
 	{
 	}

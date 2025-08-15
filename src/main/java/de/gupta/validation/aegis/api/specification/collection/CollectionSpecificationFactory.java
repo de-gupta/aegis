@@ -27,6 +27,11 @@ public final class CollectionSpecificationFactory
 		return SpecificationFactory.from(collection::containsAll);
 	}
 
+	public static <T> Specification<Collection<T>> anyInCollection(final Collection<T> collection)
+	{
+		return SpecificationFactory.from(c -> collection.stream().anyMatch(c::contains));
+	}
+
 	private CollectionSpecificationFactory()
 	{
 	}

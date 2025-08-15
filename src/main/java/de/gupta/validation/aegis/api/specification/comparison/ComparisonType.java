@@ -17,20 +17,21 @@ public enum ComparisonType
 		return t -> compare(t, threshold);
 	}
 
-	public <T extends Comparable<T>> boolean compare(T left, T right)
+	public <T extends Comparable<T>> boolean compare(T value, T threshold)
 	{
-		return compare(left, right, Comparator.naturalOrder());
+		return compare(value, threshold, Comparator.naturalOrder());
 	}
 
 	public <B, A extends B, T extends B> boolean compare(T value, A threshold, Comparator<B> comparator)
 	{
+		int result = comparator.compare(value, threshold);
 		return switch (this)
 		{
-			case LESS_THAN -> comparator.compare(value, threshold) < 0;
-			case LESS_THAN_OR_EQUAL -> comparator.compare(value, threshold) <= 0;
-			case EQUAL -> comparator.compare(value, threshold) == 0;
-			case GREATER_THAN_OR_EQUAL -> comparator.compare(value, threshold) >= 0;
-			case GREATER_THAN -> comparator.compare(value, threshold) > 0;
+			case LESS_THAN -> result < 0;
+			case LESS_THAN_OR_EQUAL -> result <= 0;
+			case EQUAL -> result == 0;
+			case GREATER_THAN_OR_EQUAL -> result >= 0;
+			case GREATER_THAN -> result > 0;
 		};
 	}
 
