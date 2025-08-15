@@ -4,18 +4,26 @@ import de.gupta.validation.aegis.api.specification.collection.CollectionSpecific
 import de.gupta.validation.aegis.api.specification.comparison.ComparableSpecificationFactory;
 import de.gupta.validation.aegis.api.specification.comparison.ComparisonType;
 import de.gupta.validation.aegis.api.specification.object.ObjectSpecificationFactory;
+import de.gupta.validation.aegis.api.specification.string.StringSpecificationFactory;
 
 import java.util.Collection;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-public final class CustomValidationSpecifications
+public final class Validations
 {
 	public static <T, V extends RuntimeException> Validation<T> notNullSpecification(
 			final Function<T, ?> extractor,
 			final Supplier<V> exceptionSupplier)
 	{
 		return ValidationFactory.from(extractor, ObjectSpecificationFactory.notNull(), exceptionSupplier);
+	}
+
+	public static <T, V extends RuntimeException> Validation<T> trimmedStringSpecification(
+			final Function<T, String> extractor,
+			final Supplier<V> exceptionSupplier)
+	{
+		return ValidationFactory.from(extractor, StringSpecificationFactory.trimmed(), exceptionSupplier);
 	}
 
 	public static <T, W extends Comparable<W>, V extends RuntimeException> Validation<T> comparisonSpecification(
@@ -50,7 +58,7 @@ public final class CustomValidationSpecifications
 		);
 	}
 
-	private CustomValidationSpecifications()
+	private Validations()
 	{
 	}
 }
