@@ -33,6 +33,11 @@ public enum ComparisonType
 	public <B, A extends B, T extends B> boolean compare(final T value, final A threshold,
 														 final Comparator<B> comparator)
 	{
+		if (value == null || threshold == null)
+		{
+			return false;
+		}
+
 		int result = comparator.compare(value, threshold);
 		return switch (this)
 		{
@@ -59,6 +64,11 @@ public enum ComparisonType
 	public <B, A extends B, T extends B> boolean compareAll(final Collection<T> values, final A threshold,
 															final Comparator<B> comparator)
 	{
+		if (values == null || threshold == null)
+		{
+			return false;
+		}
+
 		return values.stream().allMatch(t -> compare(t, threshold, comparator));
 	}
 }

@@ -8,7 +8,8 @@ import java.util.Comparator;
 
 public final class CollectionComparisonSpecificationFactory
 {
-	public static <B, A extends B, T extends B> Specification<Collection<T>> lessThan(final A threshold, final Comparator<B> comparator)
+	public static <B, A extends B, T extends B> Specification<Collection<T>> lessThan(final A threshold,
+																					  final Comparator<B> comparator)
 	{
 		return SpecificationFactory.from(ComparisonType.LESS_THAN.allComparisonPredicate(threshold, comparator));
 	}
@@ -42,8 +43,9 @@ public final class CollectionComparisonSpecificationFactory
 	public static <B, A extends B, T extends B> Specification<Collection<T>> notEqual(final A threshold,
 																					  final Comparator<B> comparator)
 	{
-		Specification<Collection<T>> equal = equal(threshold, comparator);
-		return equal.not();
+		return SpecificationFactory.from(values -> values != null
+				&& threshold != null
+				&& !ComparisonType.EQUAL.compareAll(values, threshold, comparator));
 	}
 
 	private CollectionComparisonSpecificationFactory()

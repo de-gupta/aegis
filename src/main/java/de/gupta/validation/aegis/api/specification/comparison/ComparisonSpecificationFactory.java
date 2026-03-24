@@ -35,8 +35,9 @@ public final class ComparisonSpecificationFactory
 	public static <B, A extends B, T extends B> Specification<T> notEqual(final A threshold,
 																		  final Comparator<B> comparator)
 	{
-		Specification<T> equal = equal(threshold, comparator);
-		return equal.not();
+		return SpecificationFactory.from(value -> value != null
+				&& threshold != null
+				&& !ComparisonType.EQUAL.compare(value, threshold, comparator));
 	}
 
 	public static <B, A extends B, T extends B> Specification<T> equal(final A threshold,

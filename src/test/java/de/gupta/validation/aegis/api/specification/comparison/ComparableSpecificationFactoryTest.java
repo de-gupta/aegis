@@ -385,9 +385,9 @@ final class ComparableSpecificationFactoryTest
 					IntegerTestCase.of("with zero and negative value", 0, -10, true),
 					IntegerTestCase.of("with maximum integer values", Integer.MAX_VALUE, Integer.MAX_VALUE, false),
 					IntegerTestCase.of("with minimum integer values", Integer.MIN_VALUE, Integer.MIN_VALUE, false),
-					IntegerTestCase.of("with null value", null, 10, true),
-					IntegerTestCase.of("with null threshold", 10, null, true),
-					IntegerTestCase.of("with both null values", null, null, true)
+					IntegerTestCase.of("with null value", null, 10, false),
+					IntegerTestCase.of("with null threshold", 10, null, false),
+					IntegerTestCase.of("with both null values", null, null, false)
 			).map(tc -> Arguments.of(tc.description, tc.value, tc.threshold, tc.expectedResult));
 		}
 	}

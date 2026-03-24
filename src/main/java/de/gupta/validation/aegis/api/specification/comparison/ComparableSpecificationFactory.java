@@ -27,7 +27,9 @@ public final class ComparableSpecificationFactory
 
 	public static <T extends Comparable<T>> Specification<T> notEqual(final T threshold)
 	{
-		return equal(threshold).not();
+		return SpecificationFactory.from(value -> value != null
+				&& threshold != null
+				&& !ComparisonType.EQUAL.compare(value, threshold));
 	}
 
 	public static <T extends Comparable<T>> Specification<T> equal(final T threshold)
