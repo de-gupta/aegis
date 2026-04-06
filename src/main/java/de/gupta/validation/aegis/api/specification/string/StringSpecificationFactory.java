@@ -8,12 +8,12 @@ public final class StringSpecificationFactory
 {
 	public static Specification<String> notBlank()
 	{
-		return SpecificationFactory.from(StringSanitizationUtility::isStringNonBlank);
+		return SpecificationFactory.from(StringSanitizationUtility::isNotBlank);
 	}
 
 	public static Specification<String> trimmed()
 	{
-		return SpecificationFactory.from(StringSanitizationUtility::isStringTrimmed);
+		return SpecificationFactory.from(StringSanitizationUtility::isTrimmed);
 	}
 
 	private StringSpecificationFactory()
