@@ -2,11 +2,12 @@ package de.gupta.validation.aegis.api.specification;
 
 import java.util.function.Predicate;
 
+@Deprecated
 record CompositeSpecification<T>(Specification<T> left, Specification<T> right, CompositionType compositionType)
 		implements Specification<T>
 {
 	static <T> CompositeSpecification<T> of(final Specification<T> left, final Specification<T> right,
-											final CompositionType compositionType)
+	                                        final CompositionType compositionType)
 	{
 		return new CompositeSpecification<>(left, right, compositionType);
 	}
