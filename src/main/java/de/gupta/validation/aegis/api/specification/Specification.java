@@ -26,13 +26,13 @@ public interface Specification<T> extends BooleanAlgebra<Specification<T>>
 	}
 
 	@Override
-	default Specification<T> top()
+	default Specification<T> supremum()
 	{
 		return _ -> true;
 	}
 
 	@Override
-	default Specification<T> bottom()
+	default Specification<T> infimum()
 	{
 		return _ -> false;
 	}

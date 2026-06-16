@@ -1,5 +1,10 @@
 package de.gupta.validation.aegis.api.validation.result;
 
+import de.gupta.validation.aegis.api.violation.Violation;
+
+import java.util.Collection;
+import java.util.List;
+
 final class FailedValidationResult implements ValidationResult
 {
 	static final FailedValidationResult INSTANCE = new FailedValidationResult();
@@ -11,10 +16,45 @@ final class FailedValidationResult implements ValidationResult
 	}
 
 	@Override
-	public ValidationResult and(final ValidationResult other)
+	public Collection<Violation> blockingViolations()
 	{
-		// TODO
-		return other;
+		return List.of();
+	}
+
+	@Override
+	public Collection<Violation> toleratedViolations()
+	{
+		return List.of();
+	}
+
+	@Override
+	public ValidationResult complement()
+	{
+		return null;
+	}
+
+	@Override
+	public ValidationResult supremum()
+	{
+		return null;
+	}
+
+	@Override
+	public ValidationResult infimum()
+	{
+		return null;
+	}
+
+	@Override
+	public ValidationResult join(final ValidationResult validationResult)
+	{
+		return null;
+	}
+
+	@Override
+	public ValidationResult meet(final ValidationResult validationResult)
+	{
+		return null;
 	}
 
 	private FailedValidationResult()
