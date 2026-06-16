@@ -2,6 +2,7 @@ package de.gupta.validation.aegis.api.validation;
 
 import de.gupta.aletheia.functional.Unfolding;
 import de.gupta.validation.aegis.api.specification.Specification;
+import de.gupta.validation.aegis.api.validation.result.ValidationResult;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
