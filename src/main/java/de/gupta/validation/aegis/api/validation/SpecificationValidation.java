@@ -7,15 +7,17 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 record SpecificationValidation<T, P, E extends RuntimeException>(Function<T, P> propertyExtractor,
-																 Specification<P> specification,
-																 Supplier<E> exceptionSupplier)
+                                                                 Specification<P> specification,
+                                                                 Supplier<E> exceptionSupplier)
 		implements Validation<T>
 {
 	@Override
-	public void validate(final T t)
+	public ValidationResult validate(final T t)
 	{
+		// TODO
 		Unfolding.beckon(t)
-				 .metamorphose(propertyExtractor)
-				 .discern(specification::isSatisfiedBy, exceptionSupplier);
+		         .metamorphose(propertyExtractor)
+		         .discern(specification::isSatisfiedBy, exceptionSupplier);
+		return null;
 	}
 }

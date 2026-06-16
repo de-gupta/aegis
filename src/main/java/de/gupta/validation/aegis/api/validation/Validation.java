@@ -5,12 +5,8 @@ public interface Validation<T>
 {
 	default Validation<T> and(Validation<T> other)
 	{
-		return t ->
-		{
-			validate(t);
-			other.validate(t);
-		};
+		return t -> validate(t).and(other.validate(t));
 	}
 
-	void validate(T t);
+	ValidationResult validate(T t);
 }
