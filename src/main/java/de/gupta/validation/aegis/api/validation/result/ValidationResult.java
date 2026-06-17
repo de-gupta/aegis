@@ -1,30 +1,39 @@
 package de.gupta.validation.aegis.api.validation.result;
 
-import de.gupta.commons.utility.math.algebra.element.lattice.BooleanAlgebra;
+import de.gupta.aletheia.collection.cascade.Cascade;
+import de.gupta.commons.utility.collection.SetUtility;
+import de.gupta.commons.utility.math.algebra.element.binary.notation.additive.AdditiveSemigroup;
+import de.gupta.validation.aegis.api.violation.Severity;
 import de.gupta.validation.aegis.api.violation.Violation;
 
-import java.util.Collection;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
-public interface ValidationResult extends BooleanAlgebra<ValidationResult>
+@FunctionalInterface
+public interface ValidationResult extends AdditiveSemigroup<ValidationResult>
 {
-	boolean isValid();
+	default boolean isValid(final Severity threshold)
+	{
+		return highestSeverity()
+				.map(severity -> severity.level() < threshold.level())
+				.orElse(true);
+	}
 
-	Collection<Violation> blockingViolations();
+	default Optional<Severity> highestSeverity()
+	{
+		return Cascade.beckon(violations())
+		              .metamorphose(Violation::severity)
+		              .zenith(Comparator.comparing(Severity::level))
+		              .optional();
+	}
 
-	Collection<Violation> toleratedViolations();
+	Set<Violation> violations();
 
 	@Override
-	ValidationResult complement();
-
-	@Override
-	ValidationResult supremum();
-
-	@Override
-	ValidationResult infimum();
-
-	@Override
-	ValidationResult join(ValidationResult validationResult);
-
-	@Override
-	ValidationResult meet(ValidationResult validationResult);
+	default ValidationResult add(ValidationResult other)
+	{
+		return () -> SetUtility.unionOf(List.of(violations(), other.violations()));
+	}
 }

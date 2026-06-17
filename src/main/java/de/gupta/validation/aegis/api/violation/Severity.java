@@ -1,11 +1,6 @@
 package de.gupta.validation.aegis.api.violation;
 
-import de.gupta.commons.utility.math.algebra.element.lattice.DistributiveLattice;
-
-import java.util.Arrays;
-import java.util.Comparator;
-
-public enum Severity implements DistributiveLattice<Severity>
+public enum Severity
 {
 	CONSIDERATION(1),
 	VERY_LOW(2),
@@ -17,37 +12,9 @@ public enum Severity implements DistributiveLattice<Severity>
 
 	private final int level;
 
-	@Override
-	public Severity join(final Severity other)
-	{
-		return level() < other.level() ? this : other;
-	}
-
 	public int level()
 	{
 		return level;
-	}
-
-	@Override
-	public Severity meet(final Severity other)
-	{
-		return level() > other.level() ? this : other;
-	}
-
-	@Override
-	public Severity supremum()
-	{
-		return Arrays.stream(values())
-		             .max(Comparator.comparing(Severity::level))
-		             .orElseThrow();
-	}
-
-	@Override
-	public Severity infimum()
-	{
-		return Arrays.stream(values())
-		             .min(Comparator.comparing(Severity::level))
-		             .orElseThrow();
 	}
 
 	Severity(int level)
