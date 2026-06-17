@@ -1,16 +1,19 @@
 package de.gupta.validation.aegis.api.violation;
 
-import de.gupta.commons.utility.math.algebra.element.lattice.JoinSemilattice;
-import de.gupta.commons.utility.math.algebra.element.lattice.MeetSemilattice;
+import de.gupta.commons.utility.math.algebra.element.lattice.DistributiveLattice;
 
-public enum Severity implements JoinSemilattice<Severity>, MeetSemilattice<Severity>
+import java.util.Arrays;
+import java.util.Comparator;
+
+public enum Severity implements DistributiveLattice<Severity>
 {
-	VERY_LOW(1),
-	LOW(2),
-	MEDIUM(3),
-	HIGH(4),
-	VERY_HIGH(5),
-	CRITICAL(6);
+	CONSIDERATION(1),
+	VERY_LOW(2),
+	LOW(3),
+	MEDIUM(4),
+	HIGH(5),
+	VERY_HIGH(6),
+	CRITICAL(7);
 
 	private final int level;
 
@@ -29,6 +32,22 @@ public enum Severity implements JoinSemilattice<Severity>, MeetSemilattice<Sever
 	public Severity meet(final Severity other)
 	{
 		return level() > other.level() ? this : other;
+	}
+
+	@Override
+	public Severity supremum()
+	{
+		return Arrays.stream(values())
+		             .max(Comparator.comparing(Severity::level))
+		             .orElseThrow();
+	}
+
+	@Override
+	public Severity infimum()
+	{
+		return Arrays.stream(values())
+		             .min(Comparator.comparing(Severity::level))
+		             .orElseThrow();
 	}
 
 	Severity(int level)
