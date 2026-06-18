@@ -1,24 +1,25 @@
 package de.gupta.validation.aegis.api.validation;
 
 import de.gupta.validation.aegis.api.specification.Specification;
+import de.gupta.validation.aegis.api.violation.Violation;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
 
 public final class ValidationFactory
 {
-	public static <T, P, E extends RuntimeException> Validation<T> from(final Function<T, P> propertyExtractor,
-																		final Specification<P> specification,
-																		final Supplier<E> exceptionSupplier)
+	public static <T, P, V extends Violation> Validation<T> from(final Function<T, P> propertyExtractor,
+	                                                             final Specification<P> specification,
+	                                                             final Supplier<V> violationSupplier)
 	{
-		return new SpecificationValidation<>(propertyExtractor, specification, exceptionSupplier);
+		return new SpecificationValidation<>(propertyExtractor, specification, violationSupplier);
 	}
 
-	public static <T, P, E extends RuntimeException> Validation<T> fromExtractor(
+	public static <T, P, V extends Violation> Validation<T> fromExtractor(
 			final Function<T, ? extends P> propertyExtractor,
 			final Function<T, Specification<P>> specificationExtractor,
-			final Supplier<E> exceptionSupplier)
+			final Supplier<V> violationSupplier)
 	{
-		return new SpecificationExtractorValidation<>(propertyExtractor, specificationExtractor, exceptionSupplier);
+		return new SpecificationExtractorValidation<>(propertyExtractor, specificationExtractor, violationSupplier);
 	}
 }

@@ -1,27 +1,39 @@
 package de.gupta.validation.aegis.api.specification;
 
+import de.gupta.commons.utility.math.algebra.element.lattice.BooleanAlgebra;
+
 @FunctionalInterface
-public interface Specification<T>
+public interface Specification<T> extends BooleanAlgebra<Specification<T>>
 {
-	default Specification<T> and(Specification<T> other)
+	@Override
+	default Specification<T> meet(Specification<T> other)
 	{
-		return CompositeSpecification.of(this, other, CompositeSpecification.CompositionType.AND);
+		return t -> this.isSatisfiedBy(t) && other.isSatisfiedBy(t);
 	}
 
-	default Specification<T> or(Specification<T> other)
+	boolean isSatisfiedBy(T t);
+
+	@Override
+	default Specification<T> join(Specification<T> other)
 	{
-		return CompositeSpecification.of(this, other, CompositeSpecification.CompositionType.OR);
+		return t -> this.isSatisfiedBy(t) || other.isSatisfiedBy(t);
 	}
 
-	default Specification<T> xor(Specification<T> other)
-	{
-		return CompositeSpecification.of(this, other, CompositeSpecification.CompositionType.XOR);
-	}
-
-	default Specification<T> not()
+	@Override
+	default Specification<T> complement()
 	{
 		return t -> !this.isSatisfiedBy(t);
 	}
 
-	boolean isSatisfiedBy(T t);
+	@Override
+	default Specification<T> supremum()
+	{
+		return _ -> true;
+	}
+
+	@Override
+	default Specification<T> infimum()
+	{
+		return _ -> false;
+	}
 }
