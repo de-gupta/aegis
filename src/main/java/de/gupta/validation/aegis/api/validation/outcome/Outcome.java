@@ -4,7 +4,7 @@ import de.gupta.validation.aegis.api.validation.result.ValidationResult;
 
 import java.util.Optional;
 
-public sealed interface Outcome<M> permits FailureOutcome, PolicyBoundOutcome, SuccessfulOutcome
+public sealed interface Outcome<M> permits FailureOutcome, SuccessfulOutcome
 {
 	ValidationResult validationResult();
 
