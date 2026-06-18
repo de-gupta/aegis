@@ -51,8 +51,6 @@ public final class OutcomeFactory
 
 	public static <M> FailureOutcome<M> failure(final ValidationResult validationResult)
 	{
-		Objects.requireNonNull(validationResult, "Validation result may not be null");
-
 		return FailureOutcomeImpl.of(validationResult);
 	}
 
