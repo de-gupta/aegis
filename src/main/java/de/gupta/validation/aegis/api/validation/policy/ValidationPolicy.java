@@ -1,4 +1,4 @@
-package de.gupta.validation.aegis.api.validation.outcome;
+package de.gupta.validation.aegis.api.validation.policy;
 
 import de.gupta.validation.aegis.api.validation.result.ValidationResult;
 

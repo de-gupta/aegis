@@ -1,7 +1,8 @@
-package de.gupta.validation.aegis.api.validation;
+package de.gupta.validation.aegis.api.validation.factories.generic;
 
 import de.gupta.aletheia.functional.Unfolding;
 import de.gupta.validation.aegis.api.specification.Specification;
+import de.gupta.validation.aegis.api.validation.Validation;
 import de.gupta.validation.aegis.api.validation.result.ValidationResult;
 import de.gupta.validation.aegis.api.validation.result.ValidationResultFactory;
 import de.gupta.validation.aegis.api.violation.Violation;

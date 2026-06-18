@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import de.gupta.commons.utility.comparison.ComparisonType;
 
 import java.util.Optional;
 import java.util.Set;
@@ -85,7 +86,7 @@ final class ValidationResultTest
 						assertThat(validationResult.highestSeverity())
 								.as("highest severity for %s", as)
 								.isEmpty();
-						assertThat(validationResult.isValid(threshold))
+						assertThat(validationResult.isLessThan(threshold))
 								.as("validity for %s", as)
 								.isEqualTo(true);
 					});
@@ -176,7 +177,7 @@ final class ValidationResultTest
 			assertThat(result)
 					.as("%s", as)
 					.satisfies(validationResult ->
-							assertThat(validationResult.isValid(tc.threshold()))
+							assertThat(validationResult.isLessThan(tc.threshold()))
 									.as("validity for %s", as)
 									.isEqualTo(tc.expected()));
 		}
@@ -199,6 +200,61 @@ final class ValidationResultTest
 			                              final Severity threshold, final boolean expected)
 			{
 				return new IsValidCase(as, violations, threshold, expected);
+			}
+		}
+	}
+
+	@Nested
+	@DisplayName("for isValid(Severity, ComparisonType)")
+	final class ForIsValidWithComparisonType
+	{
+		@ParameterizedTest(name = "{0}")
+		@MethodSource("comparesTheHighestSeverityUsingTheSuppliedComparisonTypeCases")
+		@DisplayName("compares the highest severity using the supplied comparison type")
+		void comparesTheHighestSeverityUsingTheSuppliedComparisonType(final String as,
+		                                                             final IsValidWithComparisonTypeCase tc)
+		{
+			var result = ValidationResultFactory.with(tc.violations());
+
+			assertThat(result)
+					.as("%s", as)
+					.satisfies(validationResult ->
+							assertThat(validationResult.isValid(tc.threshold(), tc.comparisonType()))
+									.as("validity for %s", as)
+									.isEqualTo(tc.expected()));
+		}
+
+		private static Stream<Arguments> comparesTheHighestSeverityUsingTheSuppliedComparisonTypeCases()
+		{
+			return Stream.of(
+					IsValidWithComparisonTypeCase.of("less-than accepts strictly lower severity",
+							Set.of(LOW), Severity.HIGH, ComparisonType.LESS_THAN, true),
+					IsValidWithComparisonTypeCase.of("less-than rejects equal severity",
+							Set.of(HIGH), Severity.HIGH, ComparisonType.LESS_THAN, false),
+					IsValidWithComparisonTypeCase.of("less-than-or-equal accepts equal severity",
+							Set.of(HIGH), Severity.HIGH, ComparisonType.LESS_THAN_OR_EQUAL, true),
+					IsValidWithComparisonTypeCase.of("greater-than accepts strictly higher severity",
+							Set.of(CRITICAL), Severity.HIGH, ComparisonType.GREATER_THAN, true),
+					IsValidWithComparisonTypeCase.of("greater-than rejects lower severity",
+							Set.of(LOW), Severity.HIGH, ComparisonType.GREATER_THAN, false),
+					IsValidWithComparisonTypeCase.of("equal accepts matching severity",
+							Set.of(HIGH), Severity.HIGH, ComparisonType.EQUAL, true),
+					IsValidWithComparisonTypeCase.of("equal rejects different severity",
+							Set.of(LOW), Severity.HIGH, ComparisonType.EQUAL, false),
+					IsValidWithComparisonTypeCase.of("empty validation result stays valid for every comparison type",
+							Set.of(), Severity.HIGH, ComparisonType.GREATER_THAN, true)
+			).map(tc -> Arguments.of(tc.as(), tc));
+		}
+
+		private record IsValidWithComparisonTypeCase(String as, Set<Violation> violations, Severity threshold,
+		                                             ComparisonType comparisonType, boolean expected)
+		{
+			private static IsValidWithComparisonTypeCase of(final String as, final Set<Violation> violations,
+			                                                final Severity threshold,
+			                                                final ComparisonType comparisonType,
+			                                                final boolean expected)
+			{
+				return new IsValidWithComparisonTypeCase(as, violations, threshold, comparisonType, expected);
 			}
 		}
 	}
