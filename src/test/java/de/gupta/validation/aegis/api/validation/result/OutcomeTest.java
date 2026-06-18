@@ -1,6 +1,6 @@
 package de.gupta.validation.aegis.api.validation.result;
 
-import de.gupta.validation.aegis.api.validation.outcome.Outcomes;
+import de.gupta.validation.aegis.api.validation.outcome.OutcomeFactory;
 import de.gupta.validation.aegis.api.violation.Severity;
 import de.gupta.validation.aegis.api.violation.Violation;
 import org.junit.jupiter.api.DisplayName;
@@ -23,14 +23,14 @@ final class OutcomeTest
 
 	@Nested
 	@DisplayName("for success outcomes")
-	final class ForSuccessOutcomes
+	final class ForSuccessOutcomeFactory
 	{
 		@Test
 		@DisplayName("exposes the materialized value directly and through the optional projection")
 		void exposesTheMaterializedValueDirectlyAndThroughTheOptionalProjection()
 		{
 			var validationResult = ValidationResultFactory.empty();
-			var result = Outcomes.success("validated-value", validationResult);
+			var result = OutcomeFactory.success("validated-value", validationResult);
 
 			assertThat(result)
 					.as("success outcome")
@@ -57,7 +57,7 @@ final class OutcomeTest
 		{
 			var validationResult = ValidationResultFactory.empty();
 
-			assertThatThrownBy(() -> Outcomes.success(null, validationResult))
+			assertThatThrownBy(() -> OutcomeFactory.success(null, validationResult))
 					.as("creating a success outcome with null")
 					.isInstanceOf(IllegalArgumentException.class)
 					.hasMessageContainingAll("Value", "null");
@@ -66,14 +66,14 @@ final class OutcomeTest
 
 	@Nested
 	@DisplayName("for failure outcomes")
-	final class ForFailureOutcomes
+	final class ForFailureOutcomeFactory
 	{
 		@Test
 		@DisplayName("exposes no materialized value and retains the validation result")
 		void exposesNoMaterializedValueAndRetainsTheValidationResult()
 		{
 			var validationResult = ValidationResultFactory.with(LOW);
-			var result = Outcomes.<String>failure(validationResult);
+			var result = OutcomeFactory.<String>failure(validationResult);
 
 			assertThat(result)
 					.as("failure outcome")

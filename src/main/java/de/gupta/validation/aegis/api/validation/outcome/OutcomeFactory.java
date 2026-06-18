@@ -5,18 +5,30 @@ import de.gupta.commons.utility.exception.ExceptionHelper;
 import de.gupta.validation.aegis.api.validation.result.ValidationResult;
 import de.gupta.validation.aegis.api.validation.result.ValidationResultAlgebra;
 
-public final class Outcomes
+public final class OutcomeFactory
 {
 	public static <M> SuccessfulOutcome<M> success(final M value)
 	{
 		return SuccessfulOutcomeImpl.of(value, ValidationResultAlgebra.EMPTY_SET_BASED.zero());
 	}
 
-	public static <M> Outcome<M> outcome(final M value, final ValidationResult validationResult,
-	                                     final ValidationPolicy policy)
+	public static <M> PolicyBoundOutcome<M> outcome(final M value, final ValidationResult validationResult,
+	                                                final ValidationPolicy policy)
 	{
 		return Unfolding.beckon(validationResult)
-		                .coronate(policy::isValid, r -> success(value, r), Outcomes::failure);
+		                .coronate(policy::isValid, r -> validated(value, r, policy), r -> rejected(r, policy));
+	}
+
+	public static <M> ValidatedOutcome<M> validated(final M value, final ValidationResult validationResult,
+	                                                final ValidationPolicy policy)
+	{
+		return ValidatedOutcomeImpl.of(value, validationResult, policy);
+	}
+
+	public static <M> RejectedOutcome<M> rejected(final ValidationResult validationResult,
+	                                              final ValidationPolicy policy)
+	{
+		return RejectedOutcomeImpl.of(validationResult, policy);
 	}
 
 	public static <M> SuccessfulOutcome<M> success(final M value, final ValidationResult validationResult)
@@ -32,7 +44,7 @@ public final class Outcomes
 		                .coronate(FailureOutcomeImpl::new);
 	}
 
-	private Outcomes()
+	private OutcomeFactory()
 	{
 	}
 }
