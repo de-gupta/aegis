@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>aegis</artifactId>
-    <version>0.2.0</version>
+    <version>0.2.1-SNAPSHOT</version>
 
     <name>aegis</name>
     <description>A validation library for java using the specification pattern mainly</description>
@@ -41,7 +41,7 @@
         <connection>scm:git:git@github.com:de-gupta/aegis.git</connection>
         <developerConnection>scm:git:git@github.com:de-gupta/aegis.git</developerConnection>
         <url>https://github.com/de-gupta/aegis.git</url>
-        <tag>v0.2.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
 </project>
