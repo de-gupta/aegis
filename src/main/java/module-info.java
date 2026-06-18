@@ -18,4 +18,5 @@ module de.gupta.validation.aegis
 	exports de.gupta.validation.aegis.api.validator;
 
 	exports de.gupta.validation.aegis.api.violation;
+	exports de.gupta.validation.aegis.api.validation.outcome;
 }
