@@ -5,15 +5,15 @@ import de.gupta.validation.aegis.api.violation.Severity;
 
 final class ThresholdBasedValidationPolicy implements ValidationPolicy
 {
-	private final int threshold;
+	private final Severity threshold;
 
 	@Override
 	public boolean isValid(final ValidationResult validationResult)
 	{
-		return validationResult.isValid(Severity.fromLevel(threshold));
+		return validationResult.isValid(threshold);
 	}
 
-	ThresholdBasedValidationPolicy(final int threshold)
+	ThresholdBasedValidationPolicy(final Severity threshold)
 	{
 		this.threshold = threshold;
 	}
