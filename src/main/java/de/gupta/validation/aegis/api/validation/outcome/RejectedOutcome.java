@@ -4,7 +4,7 @@ import de.gupta.aletheia.functional.Unfolding;
 import de.gupta.commons.utility.exception.ExceptionHelper;
 import de.gupta.validation.aegis.api.validation.result.ValidationResult;
 
-public sealed interface RejectedOutcome<M> extends PolicyBound<M>, FailureOutcome<M> permits RejectedOutcomeImpl
+public sealed interface RejectedOutcome<M> extends PolicyBoundOutcome<M>, FailureOutcome<M> permits RejectedOutcomeImpl
 {
 }
 

@@ -13,8 +13,8 @@ public final class OutcomeFactory
 		return SuccessfulOutcomeImpl.of(value, ValidationResultAlgebra.EMPTY_SET_BASED.zero());
 	}
 
-	public static <M> PolicyBound<M> outcome(final M value, final ValidationResult validationResult,
-	                                         final ValidationPolicy policy)
+	public static <M> PolicyBoundOutcome<M> outcome(final M value, final ValidationResult validationResult,
+	                                                final ValidationPolicy policy)
 	{
 		Objects.requireNonNull(validationResult, "Validation result may not be null");
 		Objects.requireNonNull(policy, "Validation policy may not be null");
