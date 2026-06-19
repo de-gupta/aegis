@@ -37,6 +37,11 @@ public interface ValidationResult extends AdditiveSemigroup<ValidationResult>
 
 	Set<Violation> violations();
 
+	default ValidationResult and(final ValidationResult other)
+	{
+		return add(other);
+	}
+
 	@Override
 	default ValidationResult add(ValidationResult other)
 	{
