@@ -1,7 +1,8 @@
 package de.gupta.validation.aegis.api.validation.factories;
 
 import de.gupta.validation.aegis.api.specification.comparison.ComparisonType;
-import de.gupta.validation.aegis.api.validation.Validation;
+import de.gupta.validation.aegis.api.validation.validation.Validation;
+import de.gupta.validation.aegis.api.validation.validation.factories.TimeValidations;
 import de.gupta.validation.aegis.api.violation.Severity;
 import de.gupta.validation.aegis.api.violation.Violation;
 import org.junit.jupiter.api.DisplayName;

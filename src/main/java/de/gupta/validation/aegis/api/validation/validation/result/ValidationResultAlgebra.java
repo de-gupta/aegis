@@ -1,4 +1,4 @@
-package de.gupta.validation.aegis.api.validation.result;
+package de.gupta.validation.aegis.api.validation.validation.result;
 
 import de.gupta.commons.utility.math.algebra.structure.binary.notation.additive.AdditiveMonoidStructure;
 import de.gupta.validation.aegis.api.violation.Violation;

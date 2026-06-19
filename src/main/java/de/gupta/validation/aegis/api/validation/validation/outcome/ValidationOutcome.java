@@ -1,6 +1,6 @@
-package de.gupta.validation.aegis.api.validation.outcome;
+package de.gupta.validation.aegis.api.validation.validation.outcome;
 
-import de.gupta.validation.aegis.api.validation.result.ValidationResult;
+import de.gupta.validation.aegis.api.validation.validation.result.ValidationResult;
 
 import java.util.Optional;
 import java.util.function.Function;

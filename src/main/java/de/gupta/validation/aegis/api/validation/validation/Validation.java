@@ -1,7 +1,7 @@
-package de.gupta.validation.aegis.api.validation;
+package de.gupta.validation.aegis.api.validation.validation;
 
 import de.gupta.commons.utility.math.algebra.element.binary.notation.additive.AdditiveSemigroup;
-import de.gupta.validation.aegis.api.validation.result.ValidationResult;
+import de.gupta.validation.aegis.api.validation.validation.result.ValidationResult;
 
 @FunctionalInterface
 public interface Validation<T> extends AdditiveSemigroup<Validation<T>>

@@ -1,9 +1,9 @@
-package de.gupta.validation.aegis.api.validation.outcome;
+package de.gupta.validation.aegis.api.validation.validation.outcome;
 
 import de.gupta.aletheia.functional.Unfolding;
 import de.gupta.commons.utility.exception.ExceptionHelper;
-import de.gupta.validation.aegis.api.validation.policy.ValidationPolicy;
-import de.gupta.validation.aegis.api.validation.result.ValidationResult;
+import de.gupta.validation.aegis.api.validation.validation.policy.ValidationPolicy;
+import de.gupta.validation.aegis.api.validation.validation.result.ValidationResult;
 
 import java.util.Optional;
 

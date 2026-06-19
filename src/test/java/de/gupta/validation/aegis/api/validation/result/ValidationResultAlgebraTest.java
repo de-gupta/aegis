@@ -1,5 +1,7 @@
 package de.gupta.validation.aegis.api.validation.result;
 
+import de.gupta.validation.aegis.api.validation.validation.result.ValidationResultAlgebra;
+import de.gupta.validation.aegis.api.validation.validation.result.ValidationResultFactory;
 import de.gupta.validation.aegis.api.violation.Severity;
 import de.gupta.validation.aegis.api.violation.Violation;
 import org.junit.jupiter.api.DisplayName;

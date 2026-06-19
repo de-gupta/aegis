@@ -1,5 +1,7 @@
 package de.gupta.validation.aegis.api.validation.result;
 
+import de.gupta.commons.utility.comparison.ComparisonType;
+import de.gupta.validation.aegis.api.validation.validation.result.ValidationResultFactory;
 import de.gupta.validation.aegis.api.violation.Severity;
 import de.gupta.validation.aegis.api.violation.Violation;
 import org.junit.jupiter.api.DisplayName;
@@ -7,7 +9,6 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import de.gupta.commons.utility.comparison.ComparisonType;
 
 import java.util.Optional;
 import java.util.Set;
@@ -212,7 +213,7 @@ final class ValidationResultTest
 		@MethodSource("comparesTheHighestSeverityUsingTheSuppliedComparisonTypeCases")
 		@DisplayName("compares the highest severity using the supplied comparison type")
 		void comparesTheHighestSeverityUsingTheSuppliedComparisonType(final String as,
-		                                                             final IsValidWithComparisonTypeCase tc)
+		                                                              final IsValidWithComparisonTypeCase tc)
 		{
 			var result = ValidationResultFactory.with(tc.violations());
 

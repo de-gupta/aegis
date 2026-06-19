@@ -1,8 +1,8 @@
-package de.gupta.validation.aegis.api.validation.factories;
+package de.gupta.validation.aegis.api.validation.validation.factories;
 
 import de.gupta.validation.aegis.api.specification.string.StringSpecificationFactory;
-import de.gupta.validation.aegis.api.validation.Validation;
-import de.gupta.validation.aegis.api.validation.factories.generic.ValidationFactory;
+import de.gupta.validation.aegis.api.validation.validation.Validation;
+import de.gupta.validation.aegis.api.validation.validation.factories.generic.ValidationFactory;
 import de.gupta.validation.aegis.api.violation.Violation;
 
 import java.util.function.Function;

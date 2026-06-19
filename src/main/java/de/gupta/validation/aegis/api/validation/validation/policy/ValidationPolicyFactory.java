@@ -1,4 +1,4 @@
-package de.gupta.validation.aegis.api.validation.policy;
+package de.gupta.validation.aegis.api.validation.validation.policy;
 
 import de.gupta.commons.utility.comparison.ComparisonType;
 import de.gupta.validation.aegis.api.violation.Severity;

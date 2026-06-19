@@ -1,4 +1,4 @@
-package de.gupta.validation.aegis.api.validation.result;
+package de.gupta.validation.aegis.api.validation.validation.result;
 
 import de.gupta.validation.aegis.api.violation.Violation;
 

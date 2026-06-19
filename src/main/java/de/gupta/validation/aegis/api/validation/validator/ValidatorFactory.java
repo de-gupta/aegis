@@ -1,8 +1,8 @@
-package de.gupta.validation.aegis.api.validator;
+package de.gupta.validation.aegis.api.validation.validator;
 
-import de.gupta.validation.aegis.api.validation.Validation;
-import de.gupta.validation.aegis.api.validation.result.ValidationResult;
-import de.gupta.validation.aegis.api.validation.result.ValidationResultFactory;
+import de.gupta.validation.aegis.api.validation.validation.Validation;
+import de.gupta.validation.aegis.api.validation.validation.result.ValidationResult;
+import de.gupta.validation.aegis.api.validation.validation.result.ValidationResultFactory;
 
 import java.util.Collection;
 

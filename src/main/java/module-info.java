@@ -11,16 +11,16 @@ module de.gupta.validation.aegis
 	exports de.gupta.validation.aegis.api.specification.string;
 	exports de.gupta.validation.aegis.api.specification.time;
 
-	exports de.gupta.validation.aegis.api.validation;
-	exports de.gupta.validation.aegis.api.validation.factories;
-	exports de.gupta.validation.aegis.api.validation.result;
+	exports de.gupta.validation.aegis.api.validation.validation;
+	exports de.gupta.validation.aegis.api.validation.validation.factories;
+	exports de.gupta.validation.aegis.api.validation.validation.factories.generic;
+	exports de.gupta.validation.aegis.api.validation.validation.result;
+	exports de.gupta.validation.aegis.api.validation.validation.outcome;
+	exports de.gupta.validation.aegis.api.validation.validation.policy;
 
-	exports de.gupta.validation.aegis.api.validator;
+	exports de.gupta.validation.aegis.api.validation.validator;
 
 	exports de.gupta.validation.aegis.api.violation;
-	exports de.gupta.validation.aegis.api.validation.outcome;
-	exports de.gupta.validation.aegis.api.validation.factories.generic;
-	exports de.gupta.validation.aegis.api.validation.policy;
 
 	exports de.gupta.validation.aegis.api.policy;
 }
