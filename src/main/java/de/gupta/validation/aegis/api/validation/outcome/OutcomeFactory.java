@@ -9,13 +9,13 @@ import java.util.Objects;
 
 public final class OutcomeFactory
 {
-	public static <M> SuccessfulOutcome<M> success(final M value)
+	public static <M> SuccessfulValidationOutcome<M> success(final M value)
 	{
-		return SuccessfulOutcomeImpl.of(value, ValidationResultAlgebra.EMPTY_SET_BASED.zero());
+		return SuccessfulValidationOutcomeImpl.of(value, ValidationResultAlgebra.EMPTY_SET_BASED.zero());
 	}
 
-	public static <M> PolicyBoundOutcome<M> outcome(final M value, final ValidationResult validationResult,
-	                                                final ValidationPolicy policy)
+	public static <M> PolicyBoundValidationOutcome<M> outcome(final M value, final ValidationResult validationResult,
+	                                                          final ValidationPolicy policy)
 	{
 		Objects.requireNonNull(validationResult, "Validation result may not be null");
 		Objects.requireNonNull(policy, "Validation policy may not be null");
@@ -24,35 +24,35 @@ public final class OutcomeFactory
 		                .coronate(policy::isValid, r -> validated(value, r, policy), r -> rejected(r, policy));
 	}
 
-	public static <M> ValidatedOutcome<M> validated(final M value, final ValidationResult validationResult,
-	                                                final ValidationPolicy policy)
+	public static <M> ValidatedValidationOutcome<M> validated(final M value, final ValidationResult validationResult,
+	                                                          final ValidationPolicy policy)
 	{
 		Objects.requireNonNull(value, "Value may not be null");
 		Objects.requireNonNull(validationResult, "Validation result may not be null");
 		Objects.requireNonNull(policy, "Validation policy may not be null");
 
-		return ValidatedOutcomeImpl.of(value, validationResult, policy);
+		return ValidatedValidationOutcomeImpl.of(value, validationResult, policy);
 	}
 
-	public static <M> RejectedOutcome<M> rejected(final ValidationResult validationResult,
-	                                              final ValidationPolicy policy)
+	public static <M> RejectedValidationOutcome<M> rejected(final ValidationResult validationResult,
+	                                                        final ValidationPolicy policy)
 	{
 		Objects.requireNonNull(validationResult, "Validation result may not be null");
 		Objects.requireNonNull(policy, "Validation policy may not be null");
 
-		return RejectedOutcomeImpl.of(validationResult, policy);
+		return RejectedValidationOutcomeImpl.of(validationResult, policy);
 	}
 
-	public static <M> SuccessfulOutcome<M> success(final M value, final ValidationResult validationResult)
+	public static <M> SuccessfulValidationOutcome<M> success(final M value, final ValidationResult validationResult)
 	{
 		Objects.requireNonNull(validationResult, "Validation result may not be null");
 
-		return SuccessfulOutcomeImpl.of(value, validationResult);
+		return SuccessfulValidationOutcomeImpl.of(value, validationResult);
 	}
 
-	public static <M> FailureOutcome<M> failure(final ValidationResult validationResult)
+	public static <M> FailureValidationOutcome<M> failure(final ValidationResult validationResult)
 	{
-		return FailureOutcomeImpl.of(validationResult);
+		return FailureValidationOutcomeImpl.of(validationResult);
 	}
 
 	private OutcomeFactory()

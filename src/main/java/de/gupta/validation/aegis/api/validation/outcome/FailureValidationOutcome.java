@@ -6,7 +6,8 @@ import de.gupta.validation.aegis.api.validation.result.ValidationResult;
 
 import java.util.Optional;
 
-public sealed interface FailureOutcome<M> extends Outcome<M> permits FailureOutcomeImpl, RejectedOutcome
+public sealed interface FailureValidationOutcome<M> extends ValidationOutcome<M>
+		permits FailureValidationOutcomeImpl, RejectedValidationOutcome
 {
 	@Override
 	default boolean isSuccessful()
@@ -22,12 +23,12 @@ public sealed interface FailureOutcome<M> extends Outcome<M> permits FailureOutc
 
 }
 
-record FailureOutcomeImpl<M>(ValidationResult validationResult) implements FailureOutcome<M>
+record FailureValidationOutcomeImpl<M>(ValidationResult validationResult) implements FailureValidationOutcome<M>
 {
-	static <M> FailureOutcome<M> of(ValidationResult validationResult)
+	static <M> FailureValidationOutcome<M> of(ValidationResult validationResult)
 	{
 		return Unfolding.beckon(validationResult)
-		                .metamorphose(result -> new FailureOutcomeImpl<M>(result))
+		                .metamorphose(result -> new FailureValidationOutcomeImpl<M>(result))
 		                .decree(ExceptionHelper.iaeFrom("Validation result may not be null"));
 	}
 }

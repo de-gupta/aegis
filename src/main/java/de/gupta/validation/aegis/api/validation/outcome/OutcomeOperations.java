@@ -4,20 +4,21 @@ import java.util.function.Function;
 
 public final class OutcomeOperations
 {
-	public static <M, N> Outcome<N> map(final Outcome<M> outcome, final Function<M, N> mapper)
+	public static <M, N> ValidationOutcome<N> map(final ValidationOutcome<M> validationOutcome,
+	                                              final Function<M, N> mapper)
 	{
-		return switch (outcome)
+		return switch (validationOutcome)
 		{
-			case PolicyBoundOutcome<M> policyBoundOutcome -> switch (policyBoundOutcome)
+			case PolicyBoundValidationOutcome<M> policyBoundOutcome -> switch (policyBoundOutcome)
 			{
-				case ValidatedOutcome<M> valid ->
+				case ValidatedValidationOutcome<M> valid ->
 						OutcomeFactory.validated(mapper.apply(valid.value()), valid.validationResult(), valid.policy());
-				case RejectedOutcome<M> rejected ->
+				case RejectedValidationOutcome<M> rejected ->
 						OutcomeFactory.rejected(rejected.validationResult(), rejected.policy());
 			};
-			case SuccessfulOutcome<M> success ->
+			case SuccessfulValidationOutcome<M> success ->
 					OutcomeFactory.success(mapper.apply(success.value()), success.validationResult());
-			case FailureOutcome<M> failure -> OutcomeFactory.failure(failure.validationResult());
+			case FailureValidationOutcome<M> failure -> OutcomeFactory.failure(failure.validationResult());
 		};
 	}
 }

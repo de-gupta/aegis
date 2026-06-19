@@ -7,21 +7,22 @@ import de.gupta.validation.aegis.api.validation.result.ValidationResult;
 
 import java.util.Optional;
 
-public sealed interface ValidatedOutcome<M> extends PolicyBoundOutcome<M>, SuccessfulOutcome<M>
-		permits ValidatedOutcomeImpl
+public sealed interface ValidatedValidationOutcome<M> extends PolicyBoundValidationOutcome<M>,
+		SuccessfulValidationOutcome<M>
+		permits ValidatedValidationOutcomeImpl
 {
 }
 
-record ValidatedOutcomeImpl<M>(M value, ValidationResult validationResult, ValidationPolicy policy)
-		implements ValidatedOutcome<M>
+record ValidatedValidationOutcomeImpl<M>(M value, ValidationResult validationResult, ValidationPolicy policy)
+		implements ValidatedValidationOutcome<M>
 {
-	static <M> ValidatedOutcome<M> of(final M value, final ValidationResult validationResult,
-	                                  final ValidationPolicy policy)
+	static <M> ValidatedValidationOutcome<M> of(final M value, final ValidationResult validationResult,
+	                                            final ValidationPolicy policy)
 	{
 		return Unfolding.beckon(validationResult)
 		                .discern(policy::isValid,
 								ExceptionHelper.iaeFrom(("Validation result must be valid under the given policy")))
-		                .coronate(result -> new ValidatedOutcomeImpl<>(value, result, policy));
+		                .coronate(result -> new ValidatedValidationOutcomeImpl<>(value, result, policy));
 	}
 
 	@Override

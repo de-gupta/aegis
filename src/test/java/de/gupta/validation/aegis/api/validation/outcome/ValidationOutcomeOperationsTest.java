@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 @DisplayName("OutcomeOperations")
-final class OutcomeOperationsTest
+final class ValidationOutcomeOperationsTest
 {
 	private static final TestViolation LOW = new TestViolation("low", Severity.LOW);
 	private static final TestViolation HIGH = new TestViolation("high", Severity.HIGH);
@@ -41,7 +41,7 @@ final class OutcomeOperationsTest
 		<T, R> void mapsSuccessfulAndValidatedOutcomesToTheTargetValueWhilePreservingMetadata(final String as,
 		                                                                                      final MappingCase<T, R> tc)
 		{
-			var result = OutcomeOperations.map(tc.outcome(), tc.mapper());
+			var result = OutcomeOperations.map(tc.validationOutcome(), tc.mapper());
 
 			assertSoftly(softly ->
 			{
@@ -51,7 +51,7 @@ final class OutcomeOperationsTest
 				softly.assertThat(result.optionalValue())
 				      .as("optional value for %s", as)
 				      .isEqualTo(Optional.of(tc.expectedValue()));
-				softly.assertThat(((SuccessfulOutcome<R>) result).value())
+				softly.assertThat(((SuccessfulValidationOutcome<R>) result).value())
 				      .as("mapped value for %s", as)
 				      .isEqualTo(tc.expectedValue());
 				softly.assertThat(result.validationResult())
@@ -60,9 +60,9 @@ final class OutcomeOperationsTest
 				softly.assertThat(result)
 				      .as("mapped type for %s", as)
 				      .isInstanceOf(tc.expectedType());
-				if (tc.expectedType() == ValidatedOutcome.class)
+				if (tc.expectedType() == ValidatedValidationOutcome.class)
 				{
-					softly.assertThat(((ValidatedOutcome<R>) result).policy())
+					softly.assertThat(((ValidatedValidationOutcome<R>) result).policy())
 					      .as("policy for %s", as)
 					      .isSameAs(tc.policy());
 				}
@@ -75,7 +75,7 @@ final class OutcomeOperationsTest
 		<T, R> void mapsRejectedAndFailureOutcomesWithoutInvokingTheMapper(final String as,
 		                                                                   final PreservationCase<T, R> tc)
 		{
-			var result = OutcomeOperations.map(tc.outcome(), tc.mapper());
+			var result = OutcomeOperations.map(tc.validationOutcome(), tc.mapper());
 
 			assertSoftly(softly ->
 			{
@@ -91,9 +91,9 @@ final class OutcomeOperationsTest
 				softly.assertThat(result.validationResult())
 				      .as("validation result for %s", as)
 				      .isSameAs(tc.validationResult());
-				if (tc.expectedType() == RejectedOutcome.class)
+				if (tc.expectedType() == RejectedValidationOutcome.class)
 				{
-					softly.assertThat(((RejectedOutcome<R>) result).policy())
+					softly.assertThat(((RejectedValidationOutcome<R>) result).policy())
 					      .as("policy for %s", as)
 					      .isSameAs(tc.policy());
 				}
@@ -106,7 +106,7 @@ final class OutcomeOperationsTest
 		void propagatesMapperFailuresWhenFindingTheFirstElementOfAnEmptyCollection(final String as,
 		                                                                           final ExceptionalMappingCase<List<String>, String> tc)
 		{
-			assertThatThrownBy(() -> OutcomeOperations.map(tc.outcome(), tc.mapper()))
+			assertThatThrownBy(() -> OutcomeOperations.map(tc.validationOutcome(), tc.mapper()))
 					.as("%s", as)
 					.isInstanceOf(NoSuchElementException.class);
 		}
@@ -118,40 +118,41 @@ final class OutcomeOperationsTest
 			ValidationPolicy permissivePolicy = result -> result.isLessThan(Severity.HIGH);
 
 			return Stream.of(
-					MappingCase.of("successful string outcome maps to integer length",
+					MappingCase.of("successful string validationOutcome maps to integer length",
 							OutcomeFactory.success("alpha", emptyValidationResult),
 							String::length,
 							5,
 							emptyValidationResult,
-							SuccessfulOutcome.class,
+							SuccessfulValidationOutcome.class,
 							null),
-					MappingCase.of("successful collection outcome maps to one of its elements",
+					MappingCase.of("successful collection validationOutcome maps to one of its elements",
 							OutcomeFactory.success(List.of("first", "second", "third"), lowValidationResult),
 							values -> values.get(1),
 							"second",
 							lowValidationResult,
-							SuccessfulOutcome.class,
+							SuccessfulValidationOutcome.class,
 							null),
-					MappingCase.of("successful empty collection outcome maps to its size",
+					MappingCase.of("successful empty collection validationOutcome maps to its size",
 							OutcomeFactory.success(List.<String>of(), emptyValidationResult),
 							List::size,
 							0,
 							emptyValidationResult,
-							SuccessfulOutcome.class,
+							SuccessfulValidationOutcome.class,
 							null),
-					MappingCase.of("validated collection outcome maps to one of its elements and keeps the policy",
+					MappingCase.of(
+							"validated collection validationOutcome maps to one of its elements and keeps the policy",
 							OutcomeFactory.validated(List.of("alpha", "beta"), lowValidationResult, permissivePolicy),
 							List::getFirst,
 							"alpha",
 							lowValidationResult,
-							ValidatedOutcome.class,
+							ValidatedValidationOutcome.class,
 							permissivePolicy),
-					MappingCase.of("validated empty collection outcome maps to its size and keeps the policy",
+					MappingCase.of("validated empty collection validationOutcome maps to its size and keeps the policy",
 							OutcomeFactory.validated(List.<String>of(), lowValidationResult, permissivePolicy),
 							List::size,
 							0,
 							lowValidationResult,
-							ValidatedOutcome.class,
+							ValidatedValidationOutcome.class,
 							permissivePolicy)
 			).map(tc -> Arguments.of(tc.as(), tc));
 		}
@@ -163,17 +164,17 @@ final class OutcomeOperationsTest
 			ValidationPolicy strictPolicy = result -> result.isLessThan(Severity.HIGH);
 
 			return Stream.of(
-					PreservationCase.of("rejected collection outcome keeps rejection and policy",
+					PreservationCase.of("rejected collection validationOutcome keeps rejection and policy",
 							OutcomeFactory.<List<String>>rejected(rejectedValidationResult, strictPolicy),
 							failingMapper("mapper must not be invoked for rejected outcomes"),
 							rejectedValidationResult,
-							RejectedOutcome.class,
+							RejectedValidationOutcome.class,
 							strictPolicy),
-					PreservationCase.of("plain failure outcome keeps failure without invoking the mapper",
+					PreservationCase.of("plain failure validationOutcome keeps failure without invoking the mapper",
 							OutcomeFactory.<List<String>>failure(failedValidationResult),
 							failingMapper("mapper must not be invoked for failure outcomes"),
 							failedValidationResult,
-							FailureOutcome.class,
+							FailureValidationOutcome.class,
 							null)
 			).map(tc -> Arguments.of(tc.as(), tc));
 		}
@@ -193,47 +194,54 @@ final class OutcomeOperationsTest
 			ValidationPolicy permissivePolicy = result -> result.isLessThan(Severity.HIGH);
 
 			return Stream.of(
-					ExceptionalMappingCase.of("successful empty collection outcome throws when taking first element",
+					ExceptionalMappingCase.of(
+							"successful empty collection validationOutcome throws when taking first element",
 							OutcomeFactory.success(List.<String>of(), emptyValidationResult),
 							List::getFirst),
-					ExceptionalMappingCase.of("validated empty collection outcome throws when taking first element",
+					ExceptionalMappingCase.of(
+							"validated empty collection validationOutcome throws when taking first element",
 							OutcomeFactory.validated(List.<String>of(), lowValidationResult, permissivePolicy),
 							List::getFirst)
 			).map(tc -> Arguments.of(tc.as(), tc));
 		}
 
-		private record MappingCase<T, R>(String as, Outcome<T> outcome, Function<T, R> mapper, R expectedValue,
+		private record MappingCase<T, R>(String as, ValidationOutcome<T> validationOutcome, Function<T, R> mapper,
+		                                 R expectedValue,
 		                                 ValidationResult validationResult, Class<?> expectedType,
 		                                 ValidationPolicy policy)
 		{
-			private static <T, R> MappingCase<T, R> of(final String as, final Outcome<T> outcome,
+			private static <T, R> MappingCase<T, R> of(final String as, final ValidationOutcome<T> validationOutcome,
 			                                           final Function<T, R> mapper, final R expectedValue,
 			                                           final ValidationResult validationResult,
 			                                           final Class<?> expectedType, final ValidationPolicy policy)
 			{
-				return new MappingCase<>(as, outcome, mapper, expectedValue, validationResult, expectedType, policy);
+				return new MappingCase<>(as, validationOutcome, mapper, expectedValue, validationResult, expectedType,
+						policy);
 			}
 		}
 
-		private record PreservationCase<T, R>(String as, Outcome<T> outcome, Function<T, R> mapper,
+		private record PreservationCase<T, R>(String as, ValidationOutcome<T> validationOutcome, Function<T, R> mapper,
 		                                      ValidationResult validationResult, Class<?> expectedType,
 		                                      ValidationPolicy policy)
 		{
-			private static <T, R> PreservationCase<T, R> of(final String as, final Outcome<T> outcome,
+			private static <T, R> PreservationCase<T, R> of(final String as,
+			                                                final ValidationOutcome<T> validationOutcome,
 			                                                final Function<T, R> mapper,
 			                                                final ValidationResult validationResult,
 			                                                final Class<?> expectedType, final ValidationPolicy policy)
 			{
-				return new PreservationCase<>(as, outcome, mapper, validationResult, expectedType, policy);
+				return new PreservationCase<>(as, validationOutcome, mapper, validationResult, expectedType, policy);
 			}
 		}
 
-		private record ExceptionalMappingCase<T, R>(String as, Outcome<T> outcome, Function<T, R> mapper)
+		private record ExceptionalMappingCase<T, R>(String as, ValidationOutcome<T> validationOutcome,
+		                                            Function<T, R> mapper)
 		{
-			private static <T, R> ExceptionalMappingCase<T, R> of(final String as, final Outcome<T> outcome,
+			private static <T, R> ExceptionalMappingCase<T, R> of(final String as,
+			                                                      final ValidationOutcome<T> validationOutcome,
 			                                                      final Function<T, R> mapper)
 			{
-				return new ExceptionalMappingCase<>(as, outcome, mapper);
+				return new ExceptionalMappingCase<>(as, validationOutcome, mapper);
 			}
 		}
 	}

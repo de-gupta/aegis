@@ -12,8 +12,8 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-@DisplayName("Outcome")
-final class OutcomeTest
+@DisplayName("ValidationOutcome")
+final class ValidationOutcomeTest
 {
 	private static final TestViolation LOW = new TestViolation("low", Severity.LOW);
 
@@ -23,7 +23,7 @@ final class OutcomeTest
 
 	@Nested
 	@DisplayName("for success outcomes")
-	final class ForSuccessOutcomeFactory
+	final class ForSuccessValidationOutcomeFactory
 	{
 		@Test
 		@DisplayName("exposes the materialized value directly and through the optional projection")
@@ -66,7 +66,7 @@ final class OutcomeTest
 
 	@Nested
 	@DisplayName("for failure outcomes")
-	final class ForFailureOutcomeFactory
+	final class ForFailureValidationOutcomeFactory
 	{
 		@Test
 		@DisplayName("exposes no materialized value and retains the validation result")
