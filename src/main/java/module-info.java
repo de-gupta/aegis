@@ -11,6 +11,13 @@ module de.gupta.validation.aegis
 	exports de.gupta.validation.aegis.api.specification.string;
 	exports de.gupta.validation.aegis.api.specification.time;
 
+	exports de.gupta.validation.aegis.api.assessment.assessment;
+	exports de.gupta.validation.aegis.api.assessment.assessment.decision;
+	exports de.gupta.validation.aegis.api.assessment.assessment.factories.generic;
+	exports de.gupta.validation.aegis.api.assessment.assessment.policy;
+	exports de.gupta.validation.aegis.api.assessment.assessment.result;
+	exports de.gupta.validation.aegis.api.assessment.assessor;
+
 	exports de.gupta.validation.aegis.api.validation.validation;
 	exports de.gupta.validation.aegis.api.validation.validation.factories;
 	exports de.gupta.validation.aegis.api.validation.validation.factories.generic;
